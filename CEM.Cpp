@@ -7,15 +7,14 @@ struct Set { //Множество
 	int size = 0;
 	void add(T item) {
 		if (size == 0) {
-			data = new T[1];
-			data[0] = item;
+			data = new T[1]{ item };
 			size = 1;
 		}
 		else {
 			bool flag = 0; //Проверка на повторяющиеся элементы
 			for (size_t i = 0; i < size; i++)
 			{
-				if (data[i] == item) {
+				if (data[i] == item){
 					flag = 1;
 					break;
 				}
@@ -57,15 +56,15 @@ struct Set { //Множество
 		}
 		if (!flag) {
 			T* ndata = new T[size + 1];
-			for (int i = 0; i < position; i++)
-			{
-				ndata[i] = data[i];
-			}
-			ndata[position] = item;
-			for (int i = position + 1; i < size + 1; i++)
-			{
-				ndata[i] = data[i - 1];
-			}
+				for (int i = 0; i < position; i++)
+				{
+					ndata[i] = data[i];
+				}
+				ndata[position] = item;
+				for (int i = position + 1; i < size + 1; i++)
+				{
+					ndata[i] = data[i - 1];
+				}
 			size++;
 			delete[] data;
 			data = ndata;
@@ -85,14 +84,13 @@ struct Set { //Множество
 	}
 	int find(T item) {
 		for (int i = 0; i < size; i++)
-		{	
+		{
 			if (data[i] == item)return i;
 		}
 		return -1;
 	}
 	bool is_empty() {
-		if (size != 0)return false;
-		return true;
+		return size == 0;
 	}
 };
 
@@ -102,8 +100,7 @@ struct Stack { //Стэк
 	int size = 0;
 	void push(T item) {
 		if (size == 0) {
-			data = new T[1];
-			data[0] = item;
+			data = new T[1]{ item };
 			size = 1;
 		}
 		else {
@@ -119,8 +116,7 @@ struct Stack { //Стэк
 		return a;
 	}
 	bool is_empty() {
-		if (size == 0)return true;
-		return false;
+		return size == 0;
 	}
 };
 
@@ -130,8 +126,7 @@ struct queue { //Очередь
 	int size = 0;
 	void push(T item) {
 		if (size == 0) {
-			data = new T[1];
-			data[0] = item;
+			data = new T[1]{ item };
 			size = 1;
 		}
 		else {
@@ -144,7 +139,7 @@ struct queue { //Очередь
 		T A = data[0];
 		T* ndata = new T[size - 1];
 		for (int i = 0; i < size - 1; i++)
-		{	
+		{
 			ndata[i] = data[i + 1];
 		}
 		delete[] data;
@@ -153,8 +148,7 @@ struct queue { //Очередь
 		return A;
 	}
 	bool is_empty() {
-		if (size == 0)return true;
-		return false;
+		return size == 0;
 	}
 };
 
@@ -162,10 +156,9 @@ template<typename T>
 struct List { //Список
 	T* data = nullptr;
 	int size = 0;
-	void add(T item){
+	void add(T item) {
 		if (size == 0) {
-			data = new T[1];
-			data[0] = item;
+			data = new T[1]{ item };
 			size = 1;
 		}
 		else {
@@ -219,8 +212,7 @@ struct List { //Список
 		return -1;
 	}
 	bool is_empty() {
-		if (size != 0)return false;
-		return true;
+		return size == 0;
 	}
 };
 
@@ -288,7 +280,7 @@ struct LinkedList  //Связный список
 	T get(int index) {
 		auto* pos = pFirst;
 		for (int i = 0; i < index; i++)
-		{	
+		{
 			pos = pos->pNext;
 		}
 		return (*pos).data;
@@ -336,8 +328,7 @@ struct LinkedList  //Связный список
 		}
 	}
 	bool is_empty() {
-		if (size == 0)return true;
-		return false;
+		return size == 0;
 	}
 };
 
@@ -345,7 +336,7 @@ template<typename T>
 ostream& operator<<(ostream& out, LinkedList<T> l) {
 	auto& pos = l.pFirst;
 	for (size_t i = 0; i < l.size; i++)
-	{	
+	{
 		cout << pos->data << endl;
 		pos = pos->pNext;
 	}
@@ -354,12 +345,14 @@ ostream& operator<<(ostream& out, LinkedList<T> l) {
 
 int main()
 {
-	LinkedList<int> LL;
-	for (size_t i = 0; i < 4; i++)
-	{	
-		LL.add(i * i);
+	Set<const char*> l;
+	l.size = 0;
+
+	l.add("Artem");
+	l.add ("Max");
+
+	for (int i = 0; i < l.size; i++)
+	{
+		cout << l.data[i] << endl;
 	}
-	cout << "\n" << LL;
-	LL.set(3, 69);
-	cout << "\n" << LL;
-};
+}
